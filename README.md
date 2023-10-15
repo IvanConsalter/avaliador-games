@@ -43,12 +43,12 @@ classDiagram
 - **GET** `/games`: Retorna a lista de jogos disponíveis.
 - **POST** `/games`: Cria um novo jogo.
 - **GET** `/games/{id}`: Retorna detalhes de um jogo específico por ID.
-- **GET** `/games/{id}/reviews`: Retorna as avaliações de um jogo específico.
 
 ### Reviews
 - **GET** `/reviews`: Retorna a lista de todas as avaliações.
 - **POST** `/reviews`: Cria uma nova avaliação.
 - **GET** `/reviews/{id}`: Retorna detalhes de uma avaliação específica por ID.
+- **GET** `/reviews/game/{gameId}` : Retorna as reviews de um game
 
 ### Users
 - **GET** `/users`: Retorna a lista de usuários cadastrados.
