@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ivanconsalter.avaliadorgames.domain.User;
+import com.ivanconsalter.avaliadorgames.dto.UserDTO;
 import com.ivanconsalter.avaliadorgames.service.UserService;
 
 @RestController
@@ -22,21 +22,21 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping
-	public ResponseEntity<User> save(@RequestBody User user) {
-		User newUser = userService.save(user);
+	public ResponseEntity<UserDTO> save(@RequestBody UserDTO userDTO) {
+		UserDTO newUser = userService.save(userDTO);
 		return ResponseEntity.ok(newUser);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<User>> findAll() {
-		List<User> users = userService.findAll();
+	public ResponseEntity<List<UserDTO>> findAll() {
+		List<UserDTO> users = userService.findAll();
 		return ResponseEntity.ok().body(users);
 	}
 	
 	@GetMapping(path = "/{userId}")
-	public ResponseEntity<User> findById(@PathVariable Long userId) {
-		User user = userService.findById(userId);
-		return ResponseEntity.ok(user);
+	public ResponseEntity<UserDTO> findById(@PathVariable Long userId) {
+		UserDTO userDTO = userService.findById(userId);
+		return ResponseEntity.ok(userDTO);
 	}
 
 }

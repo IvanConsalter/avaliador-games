@@ -6,6 +6,9 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = "DTO para criar um novo jogo")
 public class GameDTO {
 	
+	@ApiModelProperty(notes = "ID único do jogo", hidden = true)
+	private Long id;
+	
 	@ApiModelProperty(notes = "Título do jogo", example = "Nome do Jogo")
     private String title;
 
@@ -17,6 +20,14 @@ public class GameDTO {
 
     @ApiModelProperty(notes = "ID do usuário que criou o jogo", example = "1")
     private Long userId;
+    
+    public Long getId() {
+		return id;
+	}
+    
+    public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;

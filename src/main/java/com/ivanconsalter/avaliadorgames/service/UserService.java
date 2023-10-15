@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ivanconsalter.avaliadorgames.domain.User;
+import com.ivanconsalter.avaliadorgames.dto.UserDTO;
+import com.ivanconsalter.avaliadorgames.mapper.UserMapper;
 import com.ivanconsalter.avaliadorgames.repository.UserRepository;
 import com.ivanconsalter.avaliadorgames.service.exception.NotFoundException;
 
@@ -14,17 +16,23 @@ public class UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private UserMapper userMapper;
 
-	public List<User> findAll() {
-		return userRepository.findAll();
+	public List<UserDTO> findAll() {
+		List<User> list = userRepository.findAll();
+		return userMapper.toListDTO(list);
 	}
 	
-	public User findById(Long userId) {
-		return userRepository.findById(userId).orElseThrow(() -> new NotFoundException(userId, User.class.getName()));
+	public UserDTO findById(Long userId) {
+		User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(userId, User.class.getName()));
+		return userMapper.toDTO(user);
 	}
 
-	public User save(User user) {
-		return userRepository.save(user);
+	public UserDTO save(UserDTO userDTO) {
+		User user = userRepository.save(userMapper.toEntity(userDTO));
+		return userMapper.toDTO(user);
 	}
 	
 

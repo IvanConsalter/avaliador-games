@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ivanconsalter.avaliadorgames.domain.Game;
 import com.ivanconsalter.avaliadorgames.domain.User;
 import com.ivanconsalter.avaliadorgames.dto.GameDTO;
+import com.ivanconsalter.avaliadorgames.mapper.GameMapper;
 import com.ivanconsalter.avaliadorgames.repository.GameRepository;
 import com.ivanconsalter.avaliadorgames.repository.UserRepository;
 import com.ivanconsalter.avaliadorgames.service.exception.NotFoundException;
@@ -20,23 +21,26 @@ public class GameService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private GameMapper gameMapper;
 
-	public List<Game> findAll() {
-		return gameRepository.findAll();
+	public List<GameDTO> findAll() {
+		List<Game> games = gameRepository.findAll();
+		return gameMapper.toListDTO(games);
 	}
 	
-	public Game findById(Long gameId) {
-		return gameRepository.findById(gameId).orElseThrow(() -> new NotFoundException(gameId, Game.class.getName()));
+	public GameDTO findById(Long gameId) {
+		Game game = gameRepository.findById(gameId).orElseThrow(() -> new NotFoundException(gameId, Game.class.getName()));
+		return gameMapper.toDTO(game);
 	}
 
-	public Game save(GameDTO gameDTO) {
+	public GameDTO save(GameDTO gameDTO) {
 		Long userId = gameDTO.getUserId();
 		User user = userRepository.findById(userId).orElseThrow( () -> new NotFoundException(userId, User.class.getName()));
-		Game game = new Game();
-		game.setTitle(gameDTO.getTitle());
-		game.setDescription(gameDTO.getDescription());
-		game.setReleaseDate(gameDTO.getReleaseDate());
+		Game game = gameMapper.toEntity(gameDTO);
 		game.setUser(user);
-		return gameRepository.save(game);
+		game = gameRepository.save(game);
+		return gameMapper.toDTO(game);
 	}
 }
