@@ -51,6 +51,15 @@ public class ReviewService {
 		review.setUser(user);
 		review.setGame(game);
 		review = reviewRepository.save(review);
+		
+		game.updateScore();
+		gameRepository.save(game);
+		
 		return reviewMapper.toDTO(review);
+	}
+
+	public List<ReviewDTO> findReviewsByGame(Long gameId) {
+		List<Review> reviews = reviewRepository.findAllByGameId(gameId);
+		return reviewMapper.toListDTO(reviews);
 	}
 }

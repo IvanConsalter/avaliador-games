@@ -40,6 +40,7 @@ public class GameService {
 		User user = userRepository.findById(userId).orElseThrow( () -> new NotFoundException(userId, User.class.getName()));
 		Game game = gameMapper.toEntity(gameDTO);
 		game.setUser(user);
+		game.updateScore();
 		game = gameRepository.save(game);
 		return gameMapper.toDTO(game);
 	}

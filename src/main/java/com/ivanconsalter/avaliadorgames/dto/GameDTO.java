@@ -21,6 +21,9 @@ public class GameDTO {
     @ApiModelProperty(notes = "ID do usuário que criou o jogo", example = "1")
     private Long userId;
     
+    @ApiModelProperty(notes = "Score do jogo", hidden = true)
+    private Double score;
+    
     public Long getId() {
 		return id;
 	}
@@ -59,6 +62,14 @@ public class GameDTO {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	
+	public Double getScore() {
+		return score;
+	}
+	
+	public void setScore(Double score) {
+		this.score = score;
 	}
     
 }
