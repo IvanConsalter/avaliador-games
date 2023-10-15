@@ -58,3 +58,9 @@ classDiagram
 ## Requisitos
 - Java 11
 - Spring Boot 2.7
+
+## Como Executar
+1. Clone o repositório.
+2. cd avaliador-games
+3. Execute a aplicação com o comando `./mvnw spring-boot:run` ou `./mvnw.cmd spring-boot:run` para sistemas Windows.
+4. Acesse a API em `localhost:8080/swagger-ui.html#/`.
