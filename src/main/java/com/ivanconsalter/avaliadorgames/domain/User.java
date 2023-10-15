@@ -14,28 +14,25 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 @Entity
 @Table(name = "users")
-@ApiModel(description = "Usuário")
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@ApiModelProperty(notes = "ID único do usuário", hidden = true)
 	private Long id;
 	
-	@ApiModelProperty(notes = "Nome de usuário")
 	private String username;
 	
-	@ApiModelProperty(notes = "Endereço de e-mail")
 	private String email;
 	
 	@JsonIgnoreProperties(value = "user")
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Game> games = new ArrayList<>();
+	
+	@JsonIgnoreProperties(value = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Review> reviews = new ArrayList<>();
 
 	public Long getId() {
 		return id;
